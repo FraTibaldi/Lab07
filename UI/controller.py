@@ -18,10 +18,26 @@ class Controller:
         self.genere_selezionato = None
 
     # POPOLA DROPDOWN
-    # TODO
+    def popolaBiblioteche(self):
+        listaBiblioteche = self._model.get_biblioteche()
+        for biblioteca in listaBiblioteche:
+            self._view._ddBiblioteche.options.append(ft.DropdownOption(key=f"{biblioteca}", text=f"{biblioteca}"))
+    def popolaGeneri(self):
+        listaGeneri = self._model.get_generi()
+        for genere in listaGeneri:
+            self._view._ddGeneri.options.append(ft.DropdownOption(key=f"{genere}", text=f"{genere}"))
 
     # CALLBACKS DROPDOWN
-    # TODO
+    def seleziona_biblioteca(self):
+        self.biblioteca_selezionata = self._view._ddBiblioteche.value
+    def seleziona_genere(self):
+        self.genere_selezionato = self._view._ddGeneri.value
 
     # AZIONE: MOSTRA LIBRI
-    # TODO
+    def hanlderButtonMostra(self, e):
+        self._view._listaLibri.controls.clear()
+        lista_libri_filtrati = self._model.get_libri_filtrati(self.biblioteca_selezionata, self.genere_selezionato)
+        for libro in lista_libri_filtrati:
+            self._view._listaLibri.controls.append(ft.Text(str(libro)))
+        self._view.update()
+
