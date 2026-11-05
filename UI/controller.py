@@ -21,11 +21,14 @@ class Controller:
     def popolaBiblioteche(self):
         listaBiblioteche = self._model.get_biblioteche()
         for biblioteca in listaBiblioteche:
-            self._view._ddBiblioteche.options.append(ft.DropdownOption(key=f"{biblioteca}", text=f"{biblioteca}"))
+            self._view._ddBiblioteche.options.append(ft.DropdownOption(key=f"{biblioteca.id}", text=f"{biblioteca}"))
+        self._view._ddBiblioteche.options.append(ft.DropdownOption(key="nessun filtro", text="nessun filtro"))
+
     def popolaGeneri(self):
         listaGeneri = self._model.get_generi()
         for genere in listaGeneri:
             self._view._ddGeneri.options.append(ft.DropdownOption(key=f"{genere}", text=f"{genere}"))
+        self._view._ddGeneri.options.append(ft.DropdownOption(key="nessun filtro", text="nessun filtro"))
 
     # CALLBACKS DROPDOWN
     def seleziona_biblioteca(self):
